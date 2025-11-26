@@ -1,22 +1,29 @@
 #!/bin/bash
 
 KERNEL=$(ls /boot/vmlinuz-* 2>/dev/null | head -1)
+KERNEL_VERSION=$(basename "$KERNEL" | sed 's/vmlinuz-//')
 
 if [ -z "$KERNEL" ] || [ ! -f "$KERNEL" ]; then
     echo "ERROR: No kernel found in /boot"
     exit 1
 fi
 
-echo "Using kernel: $KERNEL"
+echo "Using kernel: $KERNEL (version: $KERNEL_VERSION)"
 
-# Create minimal rootfs
-if [ ! -f "/workspace/initramfs.cpio.gz" ]; then
-    echo "Creating minimal rootfs..."
-    mkdir -p /tmp/initramfs/{bin,dev,proc,sys}
+# Always rebuild initramfs with latest modules
+echo "Creating rootfs with modules..."
+rm -rf /tmp/initramfs
+mkdir -p /tmp/initramfs/{bin,dev,proc,sys,modules}
 
-    cp /bin/busybox /tmp/initramfs/bin/
+cp /bin/busybox /tmp/initramfs/bin/
 
-    cat > /tmp/initramfs/init << 'EOF'
+# Copy all built kernel modules
+echo "Including built modules..."
+find /workspace/modules -name "*.ko" -exec cp {} /tmp/initramfs/modules/ \; 2>/dev/null
+MODULE_COUNT=$(ls /tmp/initramfs/modules/*.ko 2>/dev/null | wc -l)
+echo "Found $MODULE_COUNT module(s)"
+
+cat > /tmp/initramfs/init << 'EOF'
 #!/bin/busybox sh
 /bin/busybox --install -s /bin
 mount -t proc none /proc
@@ -28,29 +35,29 @@ echo "========================================"
 echo "  Linux Device Driver Testing VM"
 echo "========================================"
 echo ""
-echo "This is an isolated QEMU environment"
-echo "for testing kernel modules safely."
+echo "Available modules:"
+ls -lh /modules/*.ko 2>/dev/null || echo "  (none)"
 echo ""
-echo "To test modules:"
-echo "  1. Build in container: make"
-echo "  2. Copy .ko here (or rebuild initramfs)"
-echo "  3. insmod your_module.ko"
-echo "  4. dmesg | tail"
+echo "To test a module:"
+echo "  insmod /modules/hello.ko"
+echo "  dmesg | tail"
+echo "  rmmod hello"
+echo ""
+echo "To exit: Ctrl+A then X"
 echo ""
 
 exec /bin/sh
 EOF
-    chmod +x /tmp/initramfs/init
+chmod +x /tmp/initramfs/init
 
-    cd /tmp/initramfs
-    find . -print0 | cpio --null -o --format=newc | gzip > /workspace/initramfs.cpio.gz
-    cd /workspace/modules
-    rm -rf /tmp/initramfs
-    echo "Rootfs created!"
-fi
+cd /tmp/initramfs
+find . -print0 | cpio --null -o --format=newc | gzip > /workspace/initramfs.cpio.gz
+cd /workspace/modules
+rm -rf /tmp/initramfs
+echo "Initramfs created!"
 
+echo ""
 echo "Starting QEMU..."
-echo "Press Ctrl+A then X to exit"
 echo ""
 
 qemu-system-x86_64 \
