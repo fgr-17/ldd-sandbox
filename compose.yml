@@ -1,0 +1,14 @@
+services:
+  ldd-sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ldd-sandbox
+    privileged: true
+    volumes:
+      - ./:/workspace/modules:rw
+    working_dir: /workspace/modules
+    stdin_open: true
+    tty: true
+    devices:
+      - /dev/kvm
