@@ -126,21 +126,24 @@ rmmod hello               # Unload module
 
 **Exit QEMU:** Press `Ctrl+A`, then `X`
 
-## Project Structure
+## Background theory around ldd
 
-```
-ldd-test/
-├── Dockerfile              # Container definition
-├── compose.yml             # Docker Compose config
-├── run-qemu.sh            # QEMU launcher script
-├── Makefile               # Build orchestration
-├── 01-hello-world/        # Example module
-│   ├── Makefile          # Module build config
-│   ├── src/
-│   │   └── hello.c       # Module source
-│   └── README.md         # Module documentation
-└── README.md             # This file
-```
+1. What are Device Drivers?
+
+Device drivers are kernel modules that act as a bridge between hardware devices and the operating system. They translate generic OS commands into device-specific operations.
+
+2. Types of Device Drivers
+
+* **Character Devices:** Accessed as streams of bytes (e.g., serial ports, keyboards)
+* **Block Devices:** Accessed in fixed-size blocks (e.g., hard drives, USB sticks)
+* **Network Devices:** Handle network packets (e.g., Ethernet cards)
+
+3. Essential Concepts
+
+* **Kernel Space vs User Space:** Drivers run in kernel space with full hardware access
+* **Kernel Modules:** Loadable pieces of kernel code (.ko files)
+* **Major/Minor Numbers:** Identify devices (major = driver, minor = specific device)
+
 
 ## Tips & Tricks
 

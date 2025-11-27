@@ -9,7 +9,7 @@
 #include <linux/kernel.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_AUTHOR("John Doe");
 MODULE_DESCRIPTION("A simple Hello World module");
 MODULE_VERSION("1.0");
 
