@@ -14,7 +14,7 @@
 #define BUF_LEN 1024
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_AUTHOR("Marc Anthony");
 
 static int major_num;
 static char message[BUF_LEN] = {0};
