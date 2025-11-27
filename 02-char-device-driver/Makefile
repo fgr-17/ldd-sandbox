@@ -1,11 +1,10 @@
-MODULE_NAME := hello
+MODULE_NAME := char-device-driver
 
-# Kbuild variables (must be here for kernel build system)
+# Kbuild variables
 obj-m := $(MODULE_NAME).o
 $(MODULE_NAME)-objs := src/$(MODULE_NAME).o
 
 # Only include common.mk when NOT being called by kbuild
-# kbuild sets KERNELRELEASE when it's processing the Makefile
 ifndef KERNELRELEASE
 include ../common.mk
 endif
