@@ -53,3 +53,11 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# In your .gitignore
+build/
+*.mod
+*.mod.c
+.*.cmd
+modules.order
+Module.symvers
