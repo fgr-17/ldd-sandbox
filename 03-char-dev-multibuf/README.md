@@ -1,4 +1,4 @@
-### 2. char-device-driver
+### 3. char-dev-multibuf
 Basic character device driver demonstrating:
 - Character device registration with `register_chrdev()`
 - File operations structure (`file_operations`)
@@ -96,5 +96,3 @@ You can create multiple nodes changing the **device path** and **minor number**:
 mknod /dev/mychardev0 c 241 0
 mknod /dev/mychardev1 c 241 1
 ~~~
-
-In this example, all devices use the same buffer, so if you write something on one of them, you would be able to read that message on any of the others devices
