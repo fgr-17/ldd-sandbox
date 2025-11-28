@@ -167,7 +167,7 @@ dmesg -c              # Clear message buffer
 
 ### Module Info
 ```bash
-# Inside container (after building)
+# Inside container (after building, requires extra steps, check individual README.md)
 modinfo 01-hello-world/hello.ko
 
 # Shows: version, description, author, license, parameters
