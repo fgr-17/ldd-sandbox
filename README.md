@@ -6,7 +6,7 @@ A minimal Docker + QEMU environment for safely developing and testing Linux kern
 
 ## Overview
 
-This project provides an isolated sandbox for learning kernel driver development without risking your host system. It uses Docker for building modules and QEMU for testing them in a safe, virtualized environment.
+This project provides an isolated sandbox for learning kernel driver development without risking or your host system. It uses Docker for building modules and QEMU for testing them in a safe, virtualized environment.
 
 ## Architecture
 

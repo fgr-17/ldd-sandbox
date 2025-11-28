@@ -96,3 +96,5 @@ You can create multiple nodes changing the **device path** and **minor number**:
 mknod /dev/mychardev0 c 241 0
 mknod /dev/mychardev1 c 241 1
 ~~~
+
+In this example, each device should manage its own buffer, so you should be able to write/read on each device separately
