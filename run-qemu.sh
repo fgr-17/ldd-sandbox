@@ -12,7 +12,7 @@ echo "Using kernel: $KERNEL (version: $KERNEL_VERSION)"
 
 echo "Creating rootfs with modules..."
 rm -rf /tmp/initramfs
-mkdir -p /tmp/initramfs/{bin,dev,proc,sys,modules,usr/bin}
+mkdir -p /tmp/initramfs/{bin,dev,proc,sys,modules,usr/bin,tmp}
 
 cp /bin/busybox /tmp/initramfs/bin/
 
@@ -71,6 +71,7 @@ qemu-system-x86_64 \
     -initrd /workspace/initramfs.cpio.gz \
     -m 512M \
     -nographic \
+    -serial mon:stdio \
     -append "console=ttyS0" \
     -enable-kvm 2>/dev/null || \
 qemu-system-x86_64 \
@@ -78,4 +79,5 @@ qemu-system-x86_64 \
     -initrd /workspace/initramfs.cpio.gz \
     -m 512M \
     -nographic \
+    -serial mon:stdio \
     -append "console=ttyS0"
