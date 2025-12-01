@@ -3,7 +3,8 @@ SUBDIRS :=  01-hello-world \
 			03-char-dev-multibuf \
 			04-char-dev-ioctl \
 			05-char-dev-auto-node \
-			06-char-dev-blocking
+			06-char-dev-blocking \
+			07-char-dev-poll
 
 all:
 	@for dir in $(SUBDIRS); do \
