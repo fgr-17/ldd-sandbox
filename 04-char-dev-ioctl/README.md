@@ -53,10 +53,10 @@ cat /dev/myioctl
 
 ### 5. Test ioctl commands
 
-Run test_ioctl and check the logs:
+Run `test_ioctl` and check the logs:
 
 ~~~
-./test_ioctl
+/usr/bin/test_ioctl
 ~~~
 
 ## Key Differences from Old API
