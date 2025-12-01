@@ -1,4 +1,4 @@
-MODULE_NAME := char-dev-auto-node
+MODULE_NAME := char-dev-blocking
 
 # Kbuild variables
 obj-m := $(MODULE_NAME).o
