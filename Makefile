@@ -1,7 +1,8 @@
 SUBDIRS :=  01-hello-world \
 			02-char-device-driver \
 			03-char-dev-multibuf \
-			04-char-dev-ioctl
+			04-char-dev-ioctl \
+			05-char-dev-auto-node
 
 all:
 	@for dir in $(SUBDIRS); do \

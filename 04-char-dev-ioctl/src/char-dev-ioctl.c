@@ -101,6 +101,8 @@
      int retval = 0;
 
      // Verify the magic number
+     // ref: The magic number is a namespace mechanism
+     // to prevent ioctl command collisions across different drivers in the system.
      if (_IOC_TYPE(cmd) != IOCTL_MAGIC) {
          printk(KERN_WARNING "myioctl: Invalid ioctl magic number\n");
          return -ENOTTY;
