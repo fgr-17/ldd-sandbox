@@ -323,6 +323,9 @@ unregister_chrdev_region()  // 5. Free device numbers
 | Static permissions | Dynamic via udev rules |
 | Manual cleanup | Automatic cleanup on `rmmod` |
 
+
+Creating the device with `mknod` has an additional limitation, that is, you cannot add the new device to a particular class, while `device_create()` lets you do that. That is becausehe `/sys/class/` hierarchy is managed entirely by the kernel. Userspace tools like `mknod` have no way to create or modify `sysfs` entries.
+
 ## Getting Module Info
 
 To get detailed module information:
