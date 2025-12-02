@@ -4,7 +4,8 @@ SUBDIRS :=  01-hello-world \
 			04-char-dev-ioctl \
 			05-char-dev-auto-node \
 			06-char-dev-blocking \
-			07-char-dev-poll
+			07-char-dev-poll \
+			08-block-dev-ramdisk-basic
 
 all:
 	@for dir in $(SUBDIRS); do \
