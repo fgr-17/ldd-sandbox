@@ -226,6 +226,69 @@ stateDiagram-v2
     end note
 ```
 
+## Linux kernel space vs user space
+
+~~~mermaid
+flowchart TB
+
+%% --- User Space ---
+subgraph USERSPACE["user space"]
+    APPS["apps"]
+end
+
+%% This subgraph is only to create a wide bar
+subgraph SYSCALL["-"]
+    SYSCALL2["syscall interface"]
+end
+
+APPS --> SYSCALL
+
+%% --- Kernel subsystems (5 columns) ---
+subgraph KERNELSUB["kernel subsystems"]
+    PROCESS["process mgmt"]
+    MEM["mem mgmt"]
+    FS["fs"]
+    DEV["dev ctrl"]
+    NET["networking"]
+end
+
+SYSCALL --> PROCESS
+SYSCALL --> MEM
+SYSCALL --> FS
+SYSCALL --> DEV
+SYSCALL --> NET
+
+%% --- Kernel services ---
+subgraph KSERV["kernel services"]
+    CONCUR["concurrency\nmultitasking"]
+    VMEM["virtual memory"]
+    VFS["VFS, files\nand dirs"]
+    TTY["Tlys dev access"]
+    CONN["connectivity"]
+end
+
+PROCESS --> CONCUR
+MEM --> VMEM
+FS --> VFS
+DEV --> TTY
+NET --> CONN
+
+%% --- Hardware space ---
+subgraph HWS["hardware space"]
+    CPU["CPU\n(arch dep code)"]
+    HMEM["memory\n(mem mgmt)"]
+    DISKS["disks\n(block devices)"]
+    CONS["consoles\n(char devices)"]
+    NETIF["network interfaces\n(IF drivers)"]
+end
+
+CONCUR --> CPU
+VMEM --> HMEM
+VFS --> DISKS
+TTY --> CONS
+CONN --> NETIF
+~~~
+
 ## Learning Resources
 
 - [Linux Kernel Module Programming Guide](https://tldp.org/LDP/lkmpg/2.6/html/)
@@ -247,7 +310,3 @@ See [LICENSE](LICENSE) file.
 ## Contributing
 
 This is a learning project. Feel free to add more example drivers and submit pull requests!
-
----
-
-**Happy kernel hacking! 🐧🔧**
