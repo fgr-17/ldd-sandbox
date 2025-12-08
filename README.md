@@ -173,6 +173,12 @@ modinfo 01-hello-world/hello.ko
 # Shows: version, description, author, license, parameters
 ```
 
+Another option is using `objdump`:
+
+~~~bash
+objdump -d -j .modinfo 01-hello-world/build/hello.ko
+~~~
+
 ### Debugging
 ```bash
 # Inside QEMU - Check if module loaded
