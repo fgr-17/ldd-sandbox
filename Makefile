@@ -6,7 +6,8 @@ SUBDIRS :=  01-hello-world \
 			06-char-dev-blocking \
 			07-char-dev-poll \
 			08-block-dev-ramdisk-basic \
-			09-platform-driver
+			09-platform-driver \
+			10-platform-instance
 
 all:
 	@for dir in $(SUBDIRS); do \
